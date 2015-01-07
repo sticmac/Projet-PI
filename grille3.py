@@ -71,11 +71,10 @@ def remplirCases():
     x = randint(0, colonnes-1)
     y = randint(0, lignes-1)
     while i < 5:
-        while cases[x][y] != 0: #Pour ne pas "écraser" une case déjà remplie. On ne veut en changer la valeur QUE si elle est vide (0).
+        while cases[x][y] != 0:
             x = randint(0, colonnes-1)
             y = randint(0, lignes-1)
         cases[x][y] = 1
-        print("Virus :", x, y)
         i+=1
 
     #Mets les antidotes en place (5 n°2)
@@ -87,7 +86,6 @@ def remplirCases():
             x = randint(0, colonnes-1)
             y = randint(0, lignes-1)
         cases[x][y] = 2
-        print("Antidote :", x, y)
         i+=1
 
     #Mets les bonus en place (10 n°3)
@@ -99,7 +97,6 @@ def remplirCases():
             x = randint(0, colonnes-1)
             y = randint(0, lignes-1)
         cases[x][y] = 3
-        print("Bonus :", x, y)
         i+=1
     
     print("Bienvenue dans <insert random name here> !\nLe monde est touché par une épidémie mondiale\nVous devez trouver les 5 antidotes pour éradiquer le virus, sans découvrir de nouveaux foyers... Bonne chance !")
@@ -108,6 +105,8 @@ def remplirCases():
 
 def score():
     #Affiche la vie, le score et les différents objets restants dans la fenetre.
+    x = xcoor()
+    y = ycoor()
 
     #Turtle instantannée
     tracer(0, 0)
