@@ -13,7 +13,7 @@ def dessinerFenetre(largeur, hauteur):
     global largeurColonne, largeurLigne #On veut pourvoir utiliser ces variables dans le reste du programme, notamment dans d'autres modules.
     #Dessine la fenetre en fonction du nombre de colonnes et de lignes du quadrillage ainsi que la largeur et la hauteur de la fenetre.
     setup(largeur, hauteur, 0, 0)
-    setworldcoordinates(-50,window_height()+150,window_width()+50,-100) 
+    setworldcoordinates(-100,window_height()+150,window_width()+100,-200) 
 
     #C'est ici que l'on initialise la largeur de chaque colonnes et lignes
     largeurColonne = (window_width())/colonnes
@@ -25,22 +25,38 @@ def dessinerFenetre(largeur, hauteur):
     tracer(0, 0) 
     goto(0,0) #Turtle va à l'emplacement de départ.
 
+    i = 0 #Compteur de colonne puis de lignes
+    dessiner = True #Booléen qui permet de lancer les boucles de dessin de colonnes et de lignes.
     
-    while xcor()+largeurColonne < window_width(): #Dessine les colonnes, s'arrête avant la bordure droite de la fenetre.
-        forward(largeurColonne)
-        left(90)
+    while dessiner: #Dessine les colonnes, s'arrête avant la bordure droite de la fenetre.
         down()
+        left(90)
         forward(window_height())
         up()
         backward(window_height())
         right(90)
 
+        if i != 8:
+            #Le bord de la colonne est dessiné, on indique au milieu, légèrement plus haut, son numéro.
+            forward(largeurColonne/2)
+            right(90)
+            forward(20)
+            write(str(i))
+            backward(20)
+            left(90)
+            i+=1 #La prochaine colonne aura une valeur incrémentée de 1
+            forward(largeurColonne/2) #Avance jusqu'à l'emplacement du prochain bord.
+        else:
+            dessiner = False #Si on continue, on sort de la fenetre, donc on s'arrête.
+
     up()
     goto(0,0) #Turtle retourne à l'emplacement de départ.
     left(90)
+    i = 0 #On repart de 0 pour les lignes.
+    dessiner = True #On reprend le dessin, des lignes cette fois.
     
-    while ycor()+largeurLigne < window_height(): #Dessine les lignes, s'arrête avant la bordure basse de la fenetre.
-        forward(largeurLigne)
+    while dessiner: #Dessine les lignes, s'arrête avant la bordure basse de la fenetre.
+        down()
         right(90)
         down()
         forward(window_width())
@@ -48,10 +64,24 @@ def dessinerFenetre(largeur, hauteur):
         backward(window_width())
         left(90)
 
+        if i != 8:
+            #Le bord de la ligne est dessiné, on indique au milieu, légèrement plus à gauche, son numéro.
+            forward((largeurLigne/2)+10)
+            left(90)
+            forward(20)
+            write(str(i))
+            backward(20)
+            right(90)
+            i+=1 #La prochaine colonne aura une valeur incrémentée de 1
+            forward((largeurLigne/2)-10) #Avance jusqu'à l'emplacement du prochain bord.
+        else:
+            dessiner = False #Si on continue, on sort de la fenetre, donc on s'arrête.
+
+
     goto((largeurColonne/2),(largeurLigne/2))
     left(180)
 
-    bgcolor("#888888")
+    bgcolor("#c2e6d9")
     tracer(1, 10) #La turtle peut à présent s'animer et bouger sur la grille.
 
 def remplirCases():
