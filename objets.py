@@ -5,7 +5,7 @@ from turtle import *
 from random import *
 
 #Différentes variables gérant la vie (nombre d'habitants encore en vie sur Terre).
-vie = 7266000000
+nvie = 7266000000
 vieEnleve = 100000000 #Le nombre de morts à chaque coup.
 vieEnleveVirus = 1000000000 #Le nombre de morts à chaque fois qu'on découvre un virus.
 
@@ -15,28 +15,28 @@ nantidotes = 0
 nbonus = 0
 
 def virus():
-    global vie, vieEnleveVirus, nvirus
+    global nvie, vieEnleveVirus, nvirus
     write("Virus", False, align="center")
-    vie -= vieEnleveVirus
+    nvie -= vieEnleveVirus
     nvirus += 1
 
 def antidote():
-    global vie, vieEnleve, nantidotes
+    global nvie, vieEnleve, nantidotes
     write("Antidote", False, align="center")
-    vie -= vieEnleve
+    nvie -= vieEnleve
     nantidotes += 1
 
 def bonus():
-    global vie, vieEnleve, nbonus
+    global nvie, vieEnleve, nbonus
     write("Bonus", False, align="center")
     vieEnleve -= randint(10000,500000)
-    vie -= vieEnleve
+    nvie -= vieEnleve
     nbonus += 1
 
 def plouf():
-    global vie, vieEnleve
+    global nvie, vieEnleve
     write("Plouf !", False, align="center")
-    vie -= vieEnleve
+    nvie -= vieEnleve
 
 def getnvirus():
     return nvirus
@@ -48,4 +48,20 @@ def getnbonus():
     return nbonus
 
 def getnvie():
-    return vie
+    return nvie
+
+def setnvirus(virus):
+    global nvirus
+    nvirus = virus
+
+def setnantidotes(antidotes):
+    global nantidotes
+    nantidotes = antidotes
+
+def setnbonus(bonus):
+    global nbonus
+    nbonus = bonus
+
+def setnvie(vie):
+    global nvie
+    nvie = vie

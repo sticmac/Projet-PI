@@ -11,6 +11,23 @@ from tkinter import messagebox
 coordonneesTortue = [0,0]
 capturer = True #Si ce booléen vaut True, alors on peut executer les évenements liés aux touches du clavier.
 
+def initialiser():
+    global objetsCases, coordonneesTortue, capturer
+    reset()
+    
+    setnvirus(0)
+    setnvie(7266000000)
+    setnbonus(0)
+    setnantidotes(0)
+
+    coordonneesTortue = [0,0]
+    capturer = True #Si ce booléen vaut True, alors on peut executer les évenements liés aux touches du clavier.
+    dessinerFenetre(1000,800)
+    objetsCases = remplirCases()
+
+    score() #Affiche les valeurs initiales du score, de la vie, etc...
+    setCoordonnees(coordonneesTortue)
+
 #Gestion des événements
 def deplacements():
     #Applique les fonctions événementielles aux touches directionnelles
@@ -74,26 +91,23 @@ def selectionner():
 
     if getnvie() <= 0 or getnvirus() == 5: #Game Over
         print("La population mondiale est éradiquée, vous avez perdu.")
-        if not messagebox.askokcancel("Game Over", "Recommencer"):
+        if not messagebox.askokcancel("Game Over", "La population mondiale a été éradiquée, vous avez perdu. Recommencer"):
             bye()
+        else:
+            initialiser()
     elif getnantidotes() == 5: #Victoire
         print("Vous avez sauvé l'humanité ! Bravo !")
-        if not messagebox.askokcancel("Victoire !", "Recommencer"): 
+        if not messagebox.askokcancel("Vous avez sauvé l'humanité ! Bravo !", "Recommencer"): 
             bye()
+        else:
+            initialiser()
     else: #Déroulement habituel du jeu
         score()
         setCoordonnees(coordonneesTortue)
     capturer = True
-
-def gameover():
-    iftkMessageBox.askokcancel("Game Over", "Recommencer")
     
 
-dessinerFenetre(1000,800)
-objetsCases = remplirCases()
-        
-score() #Affiche les valeurs initiales du score, de la vie, etc...
-setCoordonnees(coordonneesTortue)
+initialiser()
 
 #Lancement de la boucle principale : passage en programmation événementielle (tout ne peut-être changé que par pression de touche par exemple).
 deplacements()
