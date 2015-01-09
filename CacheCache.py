@@ -8,9 +8,6 @@ from tortue import *
 from objets import *
 from tkinter import messagebox
 
-coordonneesTortue = [0,0]
-capturer = True #Si ce booléen vaut True, alors on peut executer les évenements liés aux touches du clavier.
-
 def initialiser():
     global objetsCases, coordonneesTortue, capturer
     reset()
@@ -27,6 +24,9 @@ def initialiser():
 
     score() #Affiche les valeurs initiales du score, de la vie, etc...
     setCoordonnees(coordonneesTortue)
+
+    messagebox.showinfo("Titre du jeu","Bienvenue dans <insert random name here> !\nLe monde est touché par une épidémie mondiale\nVous devez trouver les 5 antidotes pour éradiquer le virus, sans découvrir de nouveaux foyers... Bonne chance !")
+
 
 #Gestion des événements
 def deplacements():
@@ -71,7 +71,8 @@ def gauche():
         coordonneesTortue[0]+=1
         
 def selectionner():
-    capturer = False
+    global capturer
+
     #On fixe les valeurs de la case où la fonction d'applique (pour éviter les bugs)
     x = coordonneesTortue[0]
     y = coordonneesTortue[1]
@@ -89,21 +90,22 @@ def selectionner():
         bonus()
     objetsCases[x][y] = -1
 
+    capturer = False
+
     if getnvie() <= 0 or getnvirus() == 5: #Game Over
-        print("La population mondiale est éradiquée, vous avez perdu.")
         if not messagebox.askokcancel("Game Over", "La population mondiale a été éradiquée, vous avez perdu. Recommencer"):
             bye()
         else:
             initialiser()
     elif getnantidotes() == 5: #Victoire
-        print("Vous avez sauvé l'humanité ! Bravo !")
-        if not messagebox.askokcancel("Vous avez sauvé l'humanité ! Bravo !", "Recommencer"): 
+        if not messagebox.askokcancel("Victoire", "Vous avez sauvé l'humanité ! Bravo ! Recommencer"): 
             bye()
         else:
             initialiser()
     else: #Déroulement habituel du jeu
         score()
         setCoordonnees(coordonneesTortue)
+        
     capturer = True
     
 

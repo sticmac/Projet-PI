@@ -132,7 +132,7 @@ def remplirCases():
         print("Bonus :", x, y)
         i+=1
     
-    print("Bienvenue dans <insert random name here> !\nLe monde est touché par une épidémie mondiale\nVous devez trouver les 5 antidotes pour éradiquer le virus, sans découvrir de nouveaux foyers... Bonne chance !")
+    #print("Bienvenue dans <insert random name here> !\nLe monde est touché par une épidémie mondiale\nVous devez trouver les 5 antidotes pour éradiquer le virus, sans découvrir de nouveaux foyers... Bonne chance !")
 
     return cases
 
