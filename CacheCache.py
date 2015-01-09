@@ -11,6 +11,8 @@ from tkinter import messagebox
 def initialiser():
     global objetsCases, coordonneesTortue, capturer
     reset()
+
+    title("VIROUS")
     
     setnvirus(0)
     setnvie(7266000000)
@@ -25,7 +27,7 @@ def initialiser():
     score() #Affiche les valeurs initiales du score, de la vie, etc...
     setCoordonnees(coordonneesTortue)
 
-    messagebox.showinfo("Titre du jeu","Bienvenue dans <insert random name here> !\nLe monde est touché par une épidémie mondiale\nVous devez trouver les 5 antidotes pour éradiquer le virus, sans découvrir de nouveaux foyers... Bonne chance !")
+    messagebox.showinfo("VIROUS","Bienvenue dans Virous !\nLe monde est touché par une épidémie mondiale\nVous devez trouver les 5 antidotes pour éradiquer le virus, sans découvrir de nouveaux foyers... Bonne chance !")
 
 
 #Gestion des événements
@@ -57,7 +59,7 @@ def bas():
 def droite():
     coordonneesTortue[0]+=1
         
-    if coordonneesOK(coordonneesTortue)and capturer:
+    if coordonneesOK(coordonneesTortue) and capturer:
         setCoordonnees(coordonneesTortue)
     else:
         coordonneesTortue[0]-=1

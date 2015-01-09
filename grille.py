@@ -4,6 +4,7 @@
 from turtle import *
 from random import *
 from objets import *
+from decor import *
 
 #La valeur de ces variables globales est donnée plus tard. Pour l'instant, on ne fait que les déclarer sans les initialiser.
 colonnes = 8
@@ -22,7 +23,10 @@ def dessinerFenetre(largeur, hauteur):
     up()
     #On empeche la turtle de bouger (permet de rendre le dessin de la grille instantané).
     speed(0)
-    tracer(0, 0) 
+    tracer(0, 0)
+
+    decor()
+    
     goto(0,0) #Turtle va à l'emplacement de départ.
 
     i = 0 #Compteur de colonne puis de lignes
@@ -84,6 +88,29 @@ def dessinerFenetre(largeur, hauteur):
     bgcolor("#c2e6d9")
     tracer(1, 10) #La turtle peut à présent s'animer et bouger sur la grille.
 
+def decor():
+    x = -90
+    y = -190
+    ecart = 45
+    while x <= window_width()+100:
+        drawvirus(x,y)
+        x+=ecart
+    x-=ecart
+    while y < window_height()+150:
+        drawvirus(x,y)
+        y+=ecart
+    y-=ecart
+    while x > -100:
+        drawvirus(x,y)
+        x-=ecart
+    x+=ecart
+    while y > -200:
+        drawvirus(x,y)
+        y-=ecart
+    seth(0)
+    up()
+    color("black")
+
 def remplirCases():
     i = 0
     cases = []
@@ -139,7 +166,9 @@ def remplirCases():
 def score():
     #Affiche la vie, le score et les différents objets restants dans la fenetre.
 
-    #Turtle instantannée
+    #Turtle instantannée et invisible
+    hideturtle()
+    speed(0)
     tracer(0, 0)
 
     #Efface les anciennes valeurs en redessinant un rectangle blanc
@@ -180,7 +209,7 @@ def score():
     right(90)
     
 
-    #Permet de refaire bouger la turtle
+    #Permet de refaire bouger la turtle et de la rendre visible
+    showturtle()
     tracer(1, 10)
 
-    
