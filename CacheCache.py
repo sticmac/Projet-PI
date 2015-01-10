@@ -82,7 +82,7 @@ def selectionner():
     y = coordonneesTortue[1]
 
     #Execute les commandes des fonctions correspondante à l'objet trouvé, situées dans le module "objets"
-    #0 = Plouf, 1 = Virus, 2 = Antidote, 3 = Bonus, -1 = Déjà séléctionée précédemment
+    #0 = Plouf, 1 = Virus, 2 = Antidote, 3 = Bonus, -1 = Déjà sélectionnée précédemment
     objet = objetsCases[x][y]
     if objet == 0:
         plouf()
@@ -94,8 +94,12 @@ def selectionner():
         bonus()
     objetsCases[x][y] = -1
 
+    if getnvie() < 0: #La vie ne peut pas être négative
+        setnvie(0)
+    
     capturer = False #La turtle ne peut pas se déplacer sur la grille tant qu'elle dessine le score...
 
+    score() 
     if getnvie() <= 0 or getnvirus() == 5: #Game Over
         if not messagebox.askokcancel("Game Over", "La population mondiale a été éradiquée, vous avez perdu. Recommencer"):
             bye() #Fin du jeu
@@ -107,7 +111,6 @@ def selectionner():
         else:
             initialiser() 
     else: #Déroulement habituel du jeu
-        score() 
         setCoordonnees(coordonneesTortue) #La turtle se déplace sur ses nouvelles coordonnées
         
     capturer = True #La turtle peut de nouveau se déplacer sur la grille

@@ -87,7 +87,7 @@ def tubeaessai(x, y, longueur, largeur, couleur="black"):
 
 def seringue(x, y, longueur, largeur, couleur="black"):
     #Le premier point sur lequel on se place est le point superieur gauche de la seringue.
-    debutDessin(x,y,180,"#2B2B2B")
+    debutDessin(x,y,0,"#2B2B2B")
     down()
 
     #Partie gauche de la seringue
@@ -106,8 +106,8 @@ def seringue(x, y, longueur, largeur, couleur="black"):
     forward(largeur/3)
     right(90)
     forward(longueur/2)
-    left(degrees(atan((longueur/12)/(largeur/2))))
-    forward(sqrt(pow(longueur/12,2)+pow(largeur/2,2)))
+    left(degrees(atan((longueur/12)/(largeur/2)))) #Relation trigonométrique
+    forward(sqrt(pow(longueur/12,2)+pow(largeur/2,2))) #Théorème de Pythagore
     right(degrees(atan((longueur/12)/(largeur/2))))
     forward(longueur/6)
 
@@ -131,4 +131,40 @@ def seringue(x, y, longueur, largeur, couleur="black"):
     backward(longueur/12)
 
     end_fill()
-    
+
+def tetedemort(x, y, longueur, largeur, couleur="black"):
+    #Le point de départ du dessin est le haut de la tete.
+    debutDessin(x,y,0,couleur)
+    down()
+    forward(largeur/4)
+    circle(largeur/4,180)
+    right(90)
+    forward(longueur-(largeur/2))
+    left(90)
+    forward(largeur/2)
+    left(90)
+    forward(longueur-(largeur/2))
+    right(90)
+    circle(largeur/4,180)
+    forward(largeur/4)
+
+    up()
+    backward(largeur/4)
+
+    end_fill()
+
+    color("red")
+    up()
+    goto(x-(largeur/4),y+(largeur/3))
+    seth(180)
+    down()
+    begin_fill()
+    circle(largeur/10)
+    end_fill()
+    up()
+    backward(largeur/2)
+    down()
+    begin_fill()
+    circle(largeur/10)
+    end_fill()
+

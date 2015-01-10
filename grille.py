@@ -95,7 +95,7 @@ def dessinerFenetre(largeur, hauteur):
 def decor():
     #Dessin du décor sur toute la fenetre.
 
-    #Dessin des virus tout le long de la bordure de la fenetre
+    #Dessin des virus sur les bordures supérieures et inférieures de la fenêtre
     x = -90
     y = -190
     ecart = 45
@@ -110,6 +110,8 @@ def decor():
 
     erlenmeyer(25, -100, 80, "green")
     tubeaessai(100, -100, 100, 5, "red")
+    tetedemort(300, -100, 100, 100)
+    seringue(500, -100, 100, 20)
 
     #Remise de place des parametres de base
     seth(0)
@@ -119,6 +121,7 @@ def decor():
 def remplirCases():
     i = 0
     cases = []
+    
     #Toutes les cases valent 0
     while i < colonnes:
         cases.append([])
@@ -130,6 +133,7 @@ def remplirCases():
 
     #Mets les virus en place (5 n°1)
     i = 0
+    #Coordonnées aléatoires
     x = randint(0, colonnes-1)
     y = randint(0, lignes-1)
     while i < 5:
@@ -137,7 +141,7 @@ def remplirCases():
             x = randint(0, colonnes-1)
             y = randint(0, lignes-1)
         cases[x][y] = 1
-        print("Virus :", x, y)
+        print("Virus :", x, y) #Cheat
         i+=1
 
     #Mets les antidotes en place (5 n°2)
@@ -149,7 +153,7 @@ def remplirCases():
             x = randint(0, colonnes-1)
             y = randint(0, lignes-1)
         cases[x][y] = 2
-        print("Antidote :", x, y)
+        print("Antidote :", x, y) #Cheat
         i+=1
 
     #Mets les bonus en place (10 n°3)
@@ -161,11 +165,10 @@ def remplirCases():
             x = randint(0, colonnes-1)
             y = randint(0, lignes-1)
         cases[x][y] = 3
-        print("Bonus :", x, y)
+        print("Bonus :", x, y) #Cheat
         i+=1
     
-    #print("Bienvenue dans <insert random name here> !\nLe monde est touché par une épidémie mondiale\nVous devez trouver les 5 antidotes pour éradiquer le virus, sans découvrir de nouveaux foyers... Bonne chance !")
-
+    
     return cases
 
 def score():
@@ -176,7 +179,7 @@ def score():
     speed(0)
     tracer(0, 0)
 
-    #Efface les anciennes valeurs en redessinant un rectangle blanc
+    #Efface les anciennes valeurs en redessinant un rectangle orange
     up()
     goto(200, window_height()+25)
     begin_fill()
@@ -193,7 +196,7 @@ def score():
     up()
     color("black")
 
-    #Ecrit sur le rectangle blanc les différentes données necessaires pour le jeu.
+    #Ecrit sur le rectangle jorange les différentes données necessaires pour le jeu.
     #Dans un premier temps, on écrit sur une première ligne la population mondiale restante ainsi que le score.
     left(90)
     forward(10)
