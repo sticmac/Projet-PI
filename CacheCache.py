@@ -10,17 +10,18 @@ from tkinter import messagebox
 
 def initialiser():
     global objetsCases, coordonneesTortue, capturer
-    reset()
+    reset() #Efface l'écran
 
-    title("VIROUS")
+    title("VIROUS") #Titre de la fenetre
     
+    #Réinitialisation des variables aux valeurs de départ
     setnvirus(0)
     setnvie(7266000000)
     setnbonus(0)
     setnantidotes(0)
-
     coordonneesTortue = [0,0]
     capturer = True #Si ce booléen vaut True, alors on peut executer les évenements liés aux touches du clavier.
+
     dessinerFenetre(1000,800)
     objetsCases = remplirCases()
 
@@ -42,7 +43,8 @@ def deplacements():
 
 def haut():
     coordonneesTortue[1]-=1
-    
+
+    #On ne peut se déplacer QUE si l'on ne sort pas de la fenetre ET si la turtle ne fait pas autre chose (comme dessiner le score par exemple).
     if coordonneesOK(coordonneesTortue) and capturer:
         setCoordonnees(coordonneesTortue)
     else:
@@ -66,7 +68,7 @@ def droite():
 
 def gauche():
     coordonneesTortue[0]-=1
-        
+
     if coordonneesOK(coordonneesTortue) and capturer:
         setCoordonnees(coordonneesTortue)
     else:
@@ -80,7 +82,7 @@ def selectionner():
     y = coordonneesTortue[1]
 
     #Execute les commandes des fonctions correspondante à l'objet trouvé, situées dans le module "objets"
-    #0 = Plouf, 1 = Virus, 2 = Antidote, 3 = Bonus
+    #0 = Plouf, 1 = Virus, 2 = Antidote, 3 = Bonus, -1 = Déjà séléctionée précédemment
     objet = objetsCases[x][y]
     if objet == 0:
         plouf()
@@ -92,23 +94,23 @@ def selectionner():
         bonus()
     objetsCases[x][y] = -1
 
-    capturer = False
+    capturer = False #La turtle ne peut pas se déplacer sur la grille tant qu'elle dessine le score...
 
     if getnvie() <= 0 or getnvirus() == 5: #Game Over
         if not messagebox.askokcancel("Game Over", "La population mondiale a été éradiquée, vous avez perdu. Recommencer"):
-            bye()
+            bye() #Fin du jeu
         else:
-            initialiser()
+            initialiser() #Nouvelle partie
     elif getnantidotes() == 5: #Victoire
         if not messagebox.askokcancel("Victoire", "Vous avez sauvé l'humanité ! Bravo ! Recommencer"): 
             bye()
         else:
-            initialiser()
+            initialiser() 
     else: #Déroulement habituel du jeu
-        score()
-        setCoordonnees(coordonneesTortue)
+        score() 
+        setCoordonnees(coordonneesTortue) #La turtle se déplace sur ses nouvelles coordonnées
         
-    capturer = True
+    capturer = True #La turtle peut de nouveau se déplacer sur la grille
     
 
 initialiser()

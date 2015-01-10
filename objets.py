@@ -29,7 +29,7 @@ def antidote():
 def bonus():
     global nvie, vieEnleve, nbonus
     write("Bonus", False, align="center")
-    vieEnleve -= randint(10000,500000)
+    vieEnleve -= randint(1000000,6000000)
     nvie -= vieEnleve
     nbonus += 1
 

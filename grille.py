@@ -45,7 +45,9 @@ def dessinerFenetre(largeur, hauteur):
             forward(largeurColonne/2)
             right(90)
             forward(20)
+            color("#FFC930")
             write(str(i))
+            color("black")
             backward(20)
             left(90)
             i+=1 #La prochaine colonne aura une valeur incrémentée de 1
@@ -73,7 +75,9 @@ def dessinerFenetre(largeur, hauteur):
             forward((largeurLigne/2)+10)
             left(90)
             forward(20)
+            color("#FFC930")
             write(str(i))
+            color("black")
             backward(20)
             right(90)
             i+=1 #La prochaine colonne aura une valeur incrémentée de 1
@@ -85,28 +89,29 @@ def dessinerFenetre(largeur, hauteur):
     goto((largeurColonne/2),(largeurLigne/2))
     left(180)
 
-    bgcolor("#c2e6d9")
+    bgcolor("#9B9B9B")
     tracer(1, 10) #La turtle peut à présent s'animer et bouger sur la grille.
 
 def decor():
+    #Dessin du décor sur toute la fenetre.
+
+    #Dessin des virus tout le long de la bordure de la fenetre
     x = -90
     y = -190
     ecart = 45
     while x <= window_width()+100:
         drawvirus(x,y)
         x+=ecart
-    x-=ecart
-    while y < window_height()+150:
+    x = -90
+    y = 925
+    while x <= window_width()+100:
         drawvirus(x,y)
-        y+=ecart
-    y-=ecart
-    while x > -100:
-        drawvirus(x,y)
-        x-=ecart
-    x+=ecart
-    while y > -200:
-        drawvirus(x,y)
-        y-=ecart
+        x+=ecart
+
+    erlenmeyer(25, -100, 80, "green")
+    tubeaessai(100, -100, 100, 5, "red")
+
+    #Remise de place des parametres de base
     seth(0)
     up()
     color("black")
@@ -173,14 +178,15 @@ def score():
 
     #Efface les anciennes valeurs en redessinant un rectangle blanc
     up()
-    goto(25, window_height()+25)
+    goto(200, window_height()+25)
     begin_fill()
-    color("white","white")
+    color("black","#F7A110")
     down()
-    goto(window_width()-25,window_height()+25)
+    goto(window_width()-200,window_height()+25)
     backward(75)
-    goto(25, window_height()+100)
-    forward(50)
+    goto(200, window_height()+100)
+    forward(75)
+    backward(30)
     end_fill()
 
     #Remet les parametres de base (noir, etc...)
@@ -203,13 +209,12 @@ def score():
     write("Virus restants : "+str(5-getnvirus()))
     forward(300)
     write("Antidotes restants : "+str(5-getnantidotes()))
-    forward(300)
+    forward(200)
     write("Bonus : "+str(getnbonus()))
-    backward(300)
+    backward(200)
     right(90)
     
 
     #Permet de refaire bouger la turtle et de la rendre visible
     showturtle()
     tracer(1, 10)
-
