@@ -57,7 +57,7 @@ def dessinePolygone(nbCotes, lCote):
 def erlenmeyer(x, y, longueur, couleur="purple"):
     #Le premier point sur lequel on se place n'est pas le centre, mais la partie supérieure gauche de l'erlenmeyer.
     #On se situe donc en haut à gauche de la "tige" de l'erlenmeyer.
-    debutDessin(x,y,90,"#2B2B2B")
+    debutDessin(x,y,90,couleur)
     down()
     
     forward(longueur/3)
@@ -75,7 +75,7 @@ def erlenmeyer(x, y, longueur, couleur="purple"):
 
 def tubeaessai(x, y, longueur, largeur, couleur="black"):
     #Le premier point sur lequel on se place est le point superieur gauche du tube.
-    debutDessin(x,y,90,"#2B2B2B")
+    debutDessin(x,y,90,couleur)
     down()
 
     forward(longueur)
@@ -87,7 +87,7 @@ def tubeaessai(x, y, longueur, largeur, couleur="black"):
 
 def seringue(x, y, longueur, largeur, couleur="black"):
     #Le premier point sur lequel on se place est le point superieur gauche de la seringue.
-    debutDessin(x,y,0,"#2B2B2B")
+    debutDessin(x,y,0,couleur)
     down()
 
     #Partie gauche de la seringue

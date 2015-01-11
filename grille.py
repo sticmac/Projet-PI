@@ -108,10 +108,10 @@ def decor():
         drawvirus(x,y)
         x+=ecart
 
-    erlenmeyer(25, -100, 80, "green")
-    tubeaessai(100, -100, 100, 5, "red")
-    tetedemort(300, -100, 100, 100)
-    seringue(500, -100, 100, 20)
+    erlenmeyer(-50, -150, 80, "#2B2B2B")
+    tubeaessai(window_width()+50, -150, 100, 5, "#2B2B2B")
+    tetedemort(-50, window_height(), 100, 100)
+    seringue(window_width()+50, window_height(), 100, 20, "#2B2B2B")
 
     #Remise de place des parametres de base
     seth(0)
@@ -171,7 +171,7 @@ def remplirCases():
     
     return cases
 
-def score():
+def afficherScore():
     #Affiche la vie, le score et les différents objets restants dans la fenetre.
 
     #Turtle instantannée et invisible
@@ -200,7 +200,7 @@ def score():
     #Dans un premier temps, on écrit sur une première ligne la population mondiale restante ainsi que le score.
     left(90)
     forward(10)
-    write("Population mondiale : "+str(getnvie()))
+    write("Population mondiale : "+decomposerNombre(getnvie()))
     forward(300)
     write("Score : ")
     backward(300)
@@ -221,3 +221,18 @@ def score():
     #Permet de refaire bouger la turtle et de la rendre visible
     showturtle()
     tracer(1, 10)
+
+def decomposerNombre(nombre):
+    #Fonction permettant de découper un nombre en milliards, millions, milliers, etc...
+    nombreStr = str(nombre) #Transforme le nombre en chaine de caractères
+    i = 0
+    decade = []
+    while i < len(nombreStr):
+        cran = len(nombreStr)-i-1 #Prend les caractères du nombre (chaine nombreStr) à partir de la fin
+        decade.insert(0, nombreStr[cran]) #Et les insère au début d'une autre liste.
+        if (i+1)%3 == 0 and cran != 0: #On veut rajouter un espace à chaque changement de "décade" (millions, milliards...) sauf pour le dernier cran de nombreStr (0%3 = 0)
+            print(" ")
+            decade.insert(0, " ")
+        i+=1
+    nombreFinalStr = ''.join(decade) #Transforme notre liste en chaine de caractère.
+    return nombreFinalStr

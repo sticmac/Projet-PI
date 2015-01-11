@@ -20,15 +20,15 @@ def initialiser():
     setnbonus(0)
     setnantidotes(0)
     coordonneesTortue = [0,0]
-    capturer = True #Si ce booléen vaut True, alors on peut executer les évenements liés aux touches du clavier.
 
     dessinerFenetre(1000,800)
     objetsCases = remplirCases()
 
-    score() #Affiche les valeurs initiales du score, de la vie, etc...
+    afficherScore() #Affiche les valeurs initiales du score, de la vie, etc...
     setCoordonnees(coordonneesTortue)
 
     messagebox.showinfo("VIROUS","Bienvenue dans Virous !\nLe monde est touché par une épidémie mondiale\nVous devez trouver les 5 antidotes pour éradiquer le virus, sans découvrir de nouveaux foyers... Bonne chance !")
+    capturer = True #Si ce booléen vaut True, alors on peut executer les évenements liés aux touches du clavier.
 
 
 #Gestion des événements
@@ -99,7 +99,7 @@ def selectionner():
     
     capturer = False #La turtle ne peut pas se déplacer sur la grille tant qu'elle dessine le score...
 
-    score() 
+    afficherScore() 
     if getnvie() <= 0 or getnvirus() == 5: #Game Over
         if not messagebox.askokcancel("Game Over", "La population mondiale a été éradiquée, vous avez perdu. Recommencer"):
             bye() #Fin du jeu
