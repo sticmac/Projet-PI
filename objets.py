@@ -14,20 +14,24 @@ nvirus = 0
 nantidotes = 0
 nbonus = 0
 
+score = 0
+
 def virus():
-    global nvie, vieEnleveVirus, nvirus
+    global nvie, vieEnleveVirus, nvirus, score
     write("Virus", False, align="center")
     nvie -= vieEnleveVirus
     nvirus += 1
 
 def antidote():
-    global nvie, vieEnleve, nantidotes
+    global nvie, vieEnleve, nantidotes, score
     write("Antidote", False, align="center")
     nvie -= vieEnleve
     nantidotes += 1
 
 def bonus():
-    global nvie, vieEnleve, nbonus
+    #Un bonus peut avoir deux effets :
+    #Soit il diminue le nombre de morts par tour, soit il augmente le score
+    global nvie, vieEnleve, nbonus, score
     write("Bonus", False, align="center")
     vieEnleve -= randint(1000000,6000000)
     nvie -= vieEnleve
@@ -37,6 +41,9 @@ def plouf():
     global nvie, vieEnleve
     write("Plouf !", False, align="center")
     nvie -= vieEnleve
+
+def getscore():
+    return score
 
 def getnvirus():
     return nvirus
@@ -49,6 +56,10 @@ def getnbonus():
 
 def getnvie():
     return nvie
+
+def setscore(nvscore):
+    global score
+    score = nvscore
 
 def setnvirus(virus):
     global nvirus
@@ -65,3 +76,4 @@ def setnbonus(bonus):
 def setnvie(vie):
     global nvie
     nvie = vie
+    
