@@ -9,6 +9,8 @@ from decor import *
 #La valeur de ces variables globales est donnée plus tard. Pour l'instant, on ne fait que les déclarer sans les initialiser.
 colonnes = 8
 lignes = 8
+
+cabu = Turtle() #Cabu sera chargée de dessiner la grille, les numéros de colonnes, de lignes, ainsi que le score et la barre de vie.
     
 def dessinerFenetre(largeur, hauteur):
     global largeurColonne, largeurLigne #On veut pourvoir utiliser ces variables dans le reste du programme, notamment dans d'autres modules.
@@ -19,78 +21,80 @@ def dessinerFenetre(largeur, hauteur):
     #C'est ici que l'on initialise la largeur de chaque colonnes et lignes
     largeurColonne = (window_width())/colonnes
     largeurLigne = (window_height())/lignes
+
+    cabu.hideturtle()
     
-    up()
+    cabu.up()
     #On empeche la turtle de bouger (permet de rendre le dessin de la grille instantané).
+    cabu.speed(0)
     speed(0)
-    tracer(0, 0)
+    tracer(0,0)
 
     decor()
     
-    goto(0,0) #Turtle va à l'emplacement de départ.
+    cabu.goto(0,0) #Turtle va à l'emplacement de départ.
 
     i = 0 #Compteur de colonne puis de lignes
     dessiner = True #Booléen qui permet de lancer les boucles de dessin de colonnes et de lignes.
     
     while dessiner: #Dessine les colonnes, s'arrête avant la bordure droite de la fenetre.
-        down()
-        left(90)
-        forward(window_height())
-        up()
-        backward(window_height())
-        right(90)
+        cabu.down()
+        cabu.left(90)
+        cabu.forward(window_height())
+        cabu.up()
+        cabu.backward(window_height())
+        cabu.right(90)
 
         if i != 8:
             #Le bord de la colonne est dessiné, on indique au milieu, légèrement plus haut, son numéro.
-            forward(largeurColonne/2)
-            right(90)
-            forward(20)
-            color("#FFC930")
-            write(str(i))
-            color("black")
-            backward(20)
-            left(90)
+            cabu.forward(largeurColonne/2)
+            cabu.right(90)
+            cabu.forward(20)
+            cabu.color("#FFC930")
+            cabu.write(str(i))
+            cabu.color("black")
+            cabu.backward(20)
+            cabu.left(90)
             i+=1 #La prochaine colonne aura une valeur incrémentée de 1
-            forward(largeurColonne/2) #Avance jusqu'à l'emplacement du prochain bord.
+            cabu.forward(largeurColonne/2) #Avance jusqu'à l'emplacement du prochain bord.
         else:
             dessiner = False #Si on continue, on sort de la fenetre, donc on s'arrête.
 
-    up()
-    goto(0,0) #Turtle retourne à l'emplacement de départ.
-    left(90)
+    cabu.up()
+    cabu.goto(0,0) #Turtle retourne à l'emplacement de départ.
+    cabu.left(90)
     i = 0 #On repart de 0 pour les lignes.
     dessiner = True #On reprend le dessin, des lignes cette fois.
     
     while dessiner: #Dessine les lignes, s'arrête avant la bordure basse de la fenetre.
-        down()
-        right(90)
-        down()
-        forward(window_width())
-        up()
-        backward(window_width())
-        left(90)
+        cabu.down()
+        cabu.right(90)
+        cabu.down()
+        cabu.forward(window_width())
+        cabu.up()
+        cabu.backward(window_width())
+        cabu.left(90)
 
         if i != 8:
             #Le bord de la ligne est dessiné, on indique au milieu, légèrement plus à gauche, son numéro.
-            forward((largeurLigne/2)+10)
-            left(90)
-            forward(20)
-            color("#FFC930")
-            write(str(i))
-            color("black")
-            backward(20)
-            right(90)
+            cabu.forward((largeurLigne/2)+10)
+            cabu.left(90)
+            cabu.forward(20)
+            cabu.color("#FFC930")
+            cabu.write(str(i))
+            cabu.color("black")
+            cabu.backward(20)
+            cabu.right(90)
             i+=1 #La prochaine colonne aura une valeur incrémentée de 1
-            forward((largeurLigne/2)-10) #Avance jusqu'à l'emplacement du prochain bord.
+            cabu.forward((largeurLigne/2)-10) #Avance jusqu'à l'emplacement du prochain bord.
         else:
             dessiner = False #Si on continue, on sort de la fenetre, donc on s'arrête.
 
 
-    goto((largeurColonne/2),(largeurLigne/2))
-    left(180)
+    cabu.goto((largeurColonne/2),(largeurLigne/2))
+    cabu.left(180)
 
     bgcolor("#9B9B9B")
-    tracer(1, 10) #La turtle peut à présent s'animer et bouger sur la grille.
 
 def decor():
     #Dessin du décor sur toute la fenetre.
