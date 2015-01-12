@@ -19,6 +19,7 @@ def initialiser():
     setnvie(7266000000)
     setnbonus(0)
     setnantidotes(0)
+    setscore(0)
     coordonneesTortue = [0,0]
 
     dessinerFenetre(1000,800)
@@ -27,7 +28,10 @@ def initialiser():
     afficherScore() #Affiche les valeurs initiales du score, de la vie, etc...
     setCoordonnees(coordonneesTortue)
 
-    messagebox.showinfo("VIROUS","Bienvenue dans Virous !\nLe monde est touché par une épidémie mondiale\nVous devez trouver les 5 antidotes pour éradiquer le virus, sans découvrir de nouveaux foyers... Bonne chance !")
+    images() #On charge les images et on initialise la deuxième Turtle qui les dessinera sur la grille (Charb)
+
+    #Le jeu commence, on ouvre une boite de dialogue :
+    messagebox.showinfo("VIROUS","Bienvenue dans Virous !\nLe monde est touché par une épidémie mondiale\nVous devez trouver les 5 antidotes (fioles) pour éradiquer le virus, sans découvrir de nouveaux foyers... Bonne chance !")
     capturer = True #Si ce booléen vaut True, alors on peut executer les évenements liés aux touches du clavier.
 
 

@@ -237,7 +237,7 @@ def barreDeVie(vie, x, y):
     down()
 
     #Rectangle rouge
-    color("black","red")
+    color("black","#ba1717")
     begin_fill()
     forward(250)
     left(90)
@@ -250,7 +250,7 @@ def barreDeVie(vie, x, y):
 
     #Rectangle bleu
     left(90)
-    color("black", "blue")
+    color("black", "#9cdacc")
     begin_fill()
     forward(vie*2.5)
     left(90)
