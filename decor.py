@@ -1,4 +1,4 @@
-#Lemaire Julien - Guillaume Casagrande - G2
+#Lemaire Julien - Casagrande Guillaume - G2
 #Module responsable du dessin des éléments du décor.
 
 from turtle import *

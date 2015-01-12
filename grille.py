@@ -202,7 +202,7 @@ def afficherScore():
     forward(10)
     write("Population mondiale : "+decomposerNombre(getnvie()))
     forward(300)
-    write("Score : ")
+    write("Score : "+decomposerNombre(getscore()))
     backward(300)
     right(90)
 
@@ -231,7 +231,6 @@ def decomposerNombre(nombre):
         cran = len(nombreStr)-i-1 #Prend les caractères du nombre (chaine nombreStr) à partir de la fin
         decade.insert(0, nombreStr[cran]) #Et les insère au début d'une autre liste.
         if (i+1)%3 == 0 and cran != 0: #On veut rajouter un espace à chaque changement de "décade" (millions, milliards...) sauf pour le dernier cran de nombreStr (0%3 = 0)
-            print(" ")
             decade.insert(0, " ")
         i+=1
     nombreFinalStr = ''.join(decade) #Transforme notre liste en chaine de caractère.

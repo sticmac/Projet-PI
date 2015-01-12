@@ -101,12 +101,13 @@ def selectionner():
 
     afficherScore() 
     if getnvie() <= 0 or getnvirus() == 5: #Game Over
-        if not messagebox.askokcancel("Game Over", "La population mondiale a été éradiquée, vous avez perdu. Recommencer"):
+        if not messagebox.askokcancel("Game Over", "La population mondiale a été éradiquée, vous avez perdu.\nScore : "+str(getscore())+"\nRecommencer ?"):
             bye() #Fin du jeu
         else:
             initialiser() #Nouvelle partie
     elif getnantidotes() == 5: #Victoire
-        if not messagebox.askokcancel("Victoire", "Vous avez sauvé l'humanité ! Bravo ! Recommencer"): 
+        setscore(getscore()+1000)
+        if not messagebox.askokcancel("Victoire", "Vous avez sauvé l'humanité ! Bravo !\n"+str(getscore())+"Recommencer ?"): 
             bye()
         else:
             initialiser() 
