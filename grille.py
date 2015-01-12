@@ -113,6 +113,10 @@ def decor():
     tetedemort(-50, window_height(), 100, 100)
     seringue(window_width()+50, window_height(), 100, 20, "#2B2B2B")
 
+    up()
+    goto(window_width()/2, -50)
+    write("VIROUS",align="center",font=("Arial", "50", "normal"))
+
     #Remise de place des parametres de base
     seth(0)
     up()
