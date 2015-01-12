@@ -179,15 +179,19 @@ def afficherScore():
     speed(0)
     tracer(0, 0)
 
+    xScore = 50
+
     #Efface les anciennes valeurs en redessinant un rectangle orange
     up()
-    goto(200, window_height()+25)
+    goto(xScore, window_height()+25)
     begin_fill()
     color("black","#F7A110")
     down()
-    goto(window_width()-200,window_height()+25)
+    left(90)
+    forward(600)
+    right(90)
     backward(75)
-    goto(200, window_height()+100)
+    goto(xScore, window_height()+100)
     forward(75)
     backward(30)
     end_fill()
@@ -196,7 +200,7 @@ def afficherScore():
     up()
     color("black")
 
-    #Ecrit sur le rectangle jorange les différentes données necessaires pour le jeu.
+    #Ecrit sur le rectangle orange les différentes données necessaires pour le jeu.
     #Dans un premier temps, on écrit sur une première ligne la population mondiale restante ainsi que le score.
     left(90)
     forward(10)
@@ -216,11 +220,50 @@ def afficherScore():
     write("Bonus : "+str(getnbonus()))
     backward(200)
     right(90)
+
+    barreDeVie(pourcentageVie(),xScore+650,window_height()+25) #Trace la barre de vie à coté du rectangle orange
     
 
     #Permet de refaire bouger la turtle et de la rendre visible
     showturtle()
     tracer(1, 10)
+
+def barreDeVie(vie, x, y):
+    #Dessine la barre de vie en partant du point O(x,y)
+    #Pour cela on dessine un rectangle rouge de longueur 200 par dessus lequel on redessine un rectangle bleu, dont la longueur vaut le pourcentage de la populatrion mondiale restante multiplié par 2
+    up()
+    goto(x,y)
+    seth(0)
+    down()
+
+    #Rectangle rouge
+    color("black","red")
+    begin_fill()
+    forward(250)
+    left(90)
+    forward(75)
+    left(90)
+    forward(250)
+    left(90)
+    forward(75)
+    end_fill()
+
+    #Rectangle bleu
+    left(90)
+    color("black", "blue")
+    begin_fill()
+    forward(vie*2.5)
+    left(90)
+    forward(75)
+    left(90)
+    forward(vie*2.5)
+    left(90)
+    forward(75)
+    end_fill()
+
+    #Remise à zéro des paramètres de la tortue
+    up()
+    color("black")
 
 def decomposerNombre(nombre):
     #Fonction permettant de découper un nombre en milliards, millions, milliers, etc...

@@ -5,7 +5,8 @@ from turtle import *
 from random import *
 
 #Différentes variables gérant la vie (nombre d'habitants encore en vie sur Terre).
-nvie = 7266000000
+vieTotale = 7266000000
+nvie = vieTotale
 vieEnleve = 100000000 #Le nombre de morts à chaque coup.
 vieEnleveVirus = 1000000000 #Le nombre de morts à chaque fois qu'on découvre un virus.
 
@@ -47,6 +48,9 @@ def plouf():
     global nvie, vieEnleve
     write("Plouf !", False, align="center")
     nvie -= vieEnleve
+
+def pourcentageVie():
+    return (nvie/vieTotale)*100
 
 def getscore():
     return score
