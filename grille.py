@@ -106,7 +106,7 @@ def decor():
         drawvirus(x,y,20)
         x+=ecart
     x = -90
-    y = 925
+    y = window_height()+125
     while x <= window_width()+100:
         drawvirus(x,y,20)
         x+=ecart
