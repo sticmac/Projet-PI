@@ -89,7 +89,7 @@ def selectionner():
         x = coordonneesTortue[0]
         y = coordonneesTortue[1]
 
-        #Execute les commandes des fonctions correspondante à l'objet trouvé, situées dans le module "objets"
+        #Execute les commandes des fonctions correspondantes à l'objet trouvé, situées dans le module "objets"
         #0 = Plouf, 1 = Virus, 2 = Antidote, 3 = Bonus, -1 = Déjà sélectionnée précédemment
         objet = objetsCases[x][y]
         if objet == 0:

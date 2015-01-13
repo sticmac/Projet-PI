@@ -16,6 +16,14 @@ def debutDessin(x, y, angle, couleur):
     cabu.color(couleur)
     cabu.begin_fill()
 
+def dessinePolygone(nbCotes, lCote):
+    #Dessine un polygone de nbCotes cotés de longueur lCote
+    i=0
+    while i < nbCotes:
+        cabu.forward(lCote)
+        cabu.right(360/nbCotes)
+        i+=1
+
 def drawvirus(x, y, longueurCoteCarre):
     #Dessine un cercle de centre O(x,y) et de rayon 12
     debutDessin(x,y,90,"#2B2B2B")
@@ -49,14 +57,6 @@ def drawvirus(x, y, longueurCoteCarre):
     dessinePolygone(4,longueurCoteCarre)
     cabu.end_fill()
     cabu.goto(x,y)
-
-def dessinePolygone(nbCotes, lCote):
-    #Dessine un polygone de nbCotes cotés de longueur lCote
-    i=0
-    while i < nbCotes:
-        cabu.forward(lCote)
-        cabu.right(360/nbCotes)
-        i+=1
 
 def erlenmeyer(x, y, longueur, couleur="purple"):
     #Le premier point sur lequel on se place n'est pas le centre, mais la partie supérieure gauche de l'erlenmeyer.
