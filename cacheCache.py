@@ -23,7 +23,7 @@ def initialiser():
     setscore(0)
     coordonneesTortue = [0,0]
 
-    dessinerFenetre(1000,800)
+    dessinerFenetre(1000,800)#La résolution du jeu est donc de 1000*800
     objetsCases = remplirCases()
 
     images() #On charge les images et on initialise la deuxième Turtle qui les dessinera sur la grille (Charb)
@@ -114,7 +114,7 @@ def selectionner():
             else:
                 initialiser() #Nouvelle partie
         elif getnantidotes() == 5: #Victoire
-            setscore(getscore()+1000)
+            setscore(getscore()+1000+(int(getnvie()/getvieTotale())*1000)) #En cas de victoire, le score augmente de 1000 points + 10 fois le pourcentage de la population restante en points
             if not messagebox.askokcancel("Victoire", "Vous avez sauvé l'humanité ! Bravo !\nScore :"+str(getscore())+"\nRecommencer ?"): 
                 bye()
             else:

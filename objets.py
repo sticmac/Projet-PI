@@ -65,10 +65,10 @@ def bonus():
     i = randint(0,9-nbonus) #Pioche aléatoirement le numero du cadeau que l'on prendra comme image (on prendra "cadeaui.gif")
     if categorie == 0:
         vieEnleve -= randint(1000000,6000000)
-        dessineCharb("cadeau"+str(aBonus[i])+".gif") #Dessine la fiole correspondante
+        dessineCharb("cadeau"+str(aBonus[i])+".gif") #Dessine le cadeau correspondant
     else:
         score += randint(10,200)
-        dessineCharb("cadeau"+str(aBonus[i])+".gif") #Dessine la fiole correspondante
+        dessineCharb("cadeau"+str(aBonus[i])+".gif") #Dessine le cadeau correspondant
     aBonus.remove(aBonus[i]) #On ne veut pas repiocher deux fois le même nombre...
     nvie -= vieEnleve
     nbonus += 1

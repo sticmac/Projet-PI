@@ -6,14 +6,13 @@ from random import *
 from objets import *
 from decor import *
 
-#La valeur de ces variables globales est donnée plus tard. Pour l'instant, on ne fait que les déclarer sans les initialiser.
 colonnes = 8
 lignes = 8
 
 cabu = getCabu() #Cabu sera chargée de dessiner la grille, les numéros de colonnes, de lignes, ainsi que le score et la barre de vie.
     
 def dessinerFenetre(largeur, hauteur):
-    global largeurColonne, largeurLigne #On veut pourvoir utiliser ces variables dans le reste du programme, notamment dans d'autres modules.
+    global largeurColonne, largeurLigne #On veut pouvoir utiliser ces variables dans le reste du programme, notamment dans d'autres modules.
     #Dessine la fenetre en fonction du nombre de colonnes et de lignes du quadrillage ainsi que la largeur et la hauteur de la fenetre.
     setup(largeur, hauteur, 0, 0)
     setworldcoordinates(-100,window_height()+150,window_width()+100,-200) 
@@ -28,7 +27,6 @@ def dessinerFenetre(largeur, hauteur):
     #On empeche la turtle de bouger (permet de rendre le dessin de la grille instantané).
     cabu.speed(0)
     tracer(0,0)
-
     decor()
     
     cabu.goto(0,0) #Turtle va à l'emplacement de départ.
@@ -284,7 +282,7 @@ def decomposerNombre(nombre):
     while i < len(nombreStr):
         cran = len(nombreStr)-i-1 #Prend les caractères du nombre (chaine nombreStr) à partir de la fin
         decade.insert(0, nombreStr[cran]) #Et les insère au début d'une autre liste.
-        if (i+1)%3 == 0 and cran != 0: #On veut rajouter un espace à chaque changement de "décade" (millions, milliards...) sauf pour le dernier cran de nombreStr (0%3 = 0)
+        if (i+1)%3 == 0 and cran != 0: #On veut rajouter un espace à chaque changement d'"unités" (millions, milliards...) sauf pour le dernier cran de nombreStr (0%3 = 0)
             decade.insert(0, " ")
         i+=1
     nombreFinalStr = ''.join(decade) #Transforme notre liste en chaine de caractère.
