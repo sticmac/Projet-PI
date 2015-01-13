@@ -107,12 +107,12 @@ def decor():
     y = -190
     ecart = 45
     while x <= window_width()+100:
-        drawvirus(x,y)
+        drawvirus(x,y,20)
         x+=ecart
     x = -90
     y = 925
     while x <= window_width()+100:
-        drawvirus(x,y)
+        drawvirus(x,y,20)
         x+=ecart
 
     erlenmeyer(-50, -150, 80, "#2B2B2B")
@@ -123,10 +123,10 @@ def decor():
     cabu.up()
     cabu.goto(window_width()/2, -50)
     cabu.write("VIROUS",align="center",font=("Arial", "50", "normal"))
+    drawvirus(window_width()/2+25, -100, 70)
 
     #Remise de place des parametres de base
     cabu.seth(0)
-    cabu.up()
     cabu.color("black")
 
 def remplirCases():
