@@ -6,7 +6,7 @@ from tortue import *
 from random import *
 
 #Différentes variables gérant la vie (nombre d'habitants encore en vie sur Terre).
-vieTotale = 7266000000 #Population mondiale en début de partie.
+vieTotale = 7272000000 #Population mondiale en début de partie.
 nvie = vieTotale
 vieEnleve = 100000000 #Le nombre de morts à chaque coup.
 vieEnleveVirus = 1000000000 #Le nombre de morts à chaque fois qu'on découvre un virus.
@@ -118,8 +118,4 @@ def setnbonus(bonus):
 def setnvie(vie):
     global nvie
     nvie = vie
-
-def setvieTotale(vieT):
-    global vieTotale
-    vieTotale = vieT
     

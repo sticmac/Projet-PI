@@ -106,19 +106,22 @@ def decor():
         drawvirus(x,y,20)
         x+=ecart
     x = -90
-    y = 925
+    y = window_height()+125
     while x <= window_width()+100:
         drawvirus(x,y,20)
         x+=ecart
 
-    erlenmeyer(-50, -150, 80, "#2B2B2B")
-    tubeaessai(window_width()+50, -150, 100, 5, "#2B2B2B")
-    tetedemort(-50, window_height(), 100, 100)
-    seringue(window_width()+50, window_height(), 100, 20, "#2B2B2B")
+    erlenmeyer(-50, -150, 80, "#453ddf")
+    tubeaessai(window_width()+50, -150, 100, 5, "#f9d452")
+    tetedemort(-50, window_height(), 100, 100, "#2B2B2B")
+    seringue(window_width()+50, window_height(), 100, 20, "#4e9729")
 
+    #Imprime le titre sur la fenetre de Turtle, en haut au milieu.
     cabu.up()
-    cabu.goto(window_width()/2, -50)
-    cabu.write("VIROUS",align="center",font=("Arial", "50", "normal"))
+    cabu.goto(window_width()/2, -100)
+    addshape("virous.gif")
+    cabu.shape("virous.gif")
+    cabu.stamp()
     drawvirus(window_width()/2+25, -100, 70)
 
     #Remise de place des parametres de base
