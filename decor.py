@@ -139,6 +139,7 @@ def seringue(x, y, longueur, largeur, couleur="black"):
 def tetedemort(x, y, longueur, largeur, couleur="black"):
     #Le point de départ du dessin est le haut de la tete.
     debutDessin(x,y,0,couleur)
+    
     cabu.down()
     cabu.forward(largeur/4)
     cabu.circle(largeur/4,180)
@@ -151,12 +152,12 @@ def tetedemort(x, y, longueur, largeur, couleur="black"):
     cabu.right(90)
     cabu.circle(largeur/4,180)
     cabu.forward(largeur/4)
-
+    
     cabu.up()
     cabu.backward(largeur/4)
-
+    
     cabu.end_fill()
-
+    
     cabu.color("red")
     cabu.up()
     cabu.goto(x-(largeur/4),y+(largeur/3))

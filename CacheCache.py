@@ -17,7 +17,7 @@ def initialiser():
     
     #Réinitialisation des variables aux valeurs de départ
     setnvirus(0)
-    setnvie(7266000000)
+    setnvie(getvieTotale())
     setnbonus(0)
     setnantidotes(0)
     setscore(0)
@@ -26,10 +26,10 @@ def initialiser():
     dessinerFenetre(1000,800)
     objetsCases = remplirCases()
 
+    images() #On charge les images et on initialise la deuxième Turtle qui les dessinera sur la grille (Charb)
+
     afficherScore() #Affiche les valeurs initiales du score, de la vie, etc...
     setCoordonnees(coordonneesTortue)
-
-    images() #On charge les images et on initialise la deuxième Turtle qui les dessinera sur la grille (Charb)
 
     seth(270) #Turtle qui pointe vers le haut
     speed(0) #Turtle qui se déplace instantanément
