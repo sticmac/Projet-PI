@@ -10,7 +10,7 @@ from decor import *
 colonnes = 8
 lignes = 8
 
-cabu = Turtle() #Cabu sera chargée de dessiner la grille, les numéros de colonnes, de lignes, ainsi que le score et la barre de vie.
+cabu = getCabu() #Cabu sera chargée de dessiner la grille, les numéros de colonnes, de lignes, ainsi que le score et la barre de vie.
     
 def dessinerFenetre(largeur, hauteur):
     global largeurColonne, largeurLigne #On veut pourvoir utiliser ces variables dans le reste du programme, notamment dans d'autres modules.
@@ -27,13 +27,9 @@ def dessinerFenetre(largeur, hauteur):
     cabu.up()
     #On empeche la turtle de bouger (permet de rendre le dessin de la grille instantané).
     cabu.speed(0)
-    speed(0)
     tracer(0,0)
 
     decor()
-
-    cabu.speed(0)
-    #tracer(1,10)
     
     cabu.goto(0,0) #Turtle va à l'emplacement de départ.
 
@@ -126,6 +122,7 @@ def decor():
     drawvirus(window_width()/2+25, -100, 70)
 
     #Remise de place des parametres de base
+    cabu.up()
     cabu.seth(0)
     cabu.color("black")
 

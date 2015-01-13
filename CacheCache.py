@@ -9,7 +9,8 @@ from objets import *
 from tkinter import messagebox
 
 def initialiser():
-    global objetsCases, coordonneesTortue, capturer
+    global objetsCases, coordonneesTortue, capturer, selection
+    selection = False
     reset() #Efface l'écran
 
     title("VIROUS") #Titre de la fenetre
@@ -30,10 +31,12 @@ def initialiser():
 
     images() #On charge les images et on initialise la deuxième Turtle qui les dessinera sur la grille (Charb)
 
+    seth(270) #Turtle qui pointe vers le haut
+    speed(0) #Turtle qui se déplace instantanément
     #Le jeu commence, on ouvre une boite de dialogue :
     messagebox.showinfo("VIROUS","Bienvenue dans Virous !\nLe monde est touché par une épidémie mondiale\nVous devez trouver les 5 antidotes (fioles) pour éradiquer le virus, sans découvrir de nouveaux foyers... Bonne chance !")
     capturer = True #Si ce booléen vaut True, alors on peut executer les évenements liés aux touches du clavier.
-
+    selection = True #On peut de nouveau selectionner des cases
 
 #Gestion des événements
 def deplacements():
@@ -79,46 +82,47 @@ def gauche():
         coordonneesTortue[0]+=1
         
 def selectionner():
-    global capturer
+    global capturer, selection
 
-    #On fixe les valeurs de la case où la fonction d'applique (pour éviter les bugs)
-    x = coordonneesTortue[0]
-    y = coordonneesTortue[1]
+    if selection:
+        #On fixe les valeurs de la case où la fonction d'applique (pour éviter les bugs)
+        x = coordonneesTortue[0]
+        y = coordonneesTortue[1]
 
-    #Execute les commandes des fonctions correspondante à l'objet trouvé, situées dans le module "objets"
-    #0 = Plouf, 1 = Virus, 2 = Antidote, 3 = Bonus, -1 = Déjà sélectionnée précédemment
-    objet = objetsCases[x][y]
-    if objet == 0:
-        plouf()
-    elif objet == 1:
-        virus()
-    elif objet == 2:
-        antidote()
-    elif objet == 3:
-        bonus()
-    objetsCases[x][y] = -1
+        #Execute les commandes des fonctions correspondante à l'objet trouvé, situées dans le module "objets"
+        #0 = Plouf, 1 = Virus, 2 = Antidote, 3 = Bonus, -1 = Déjà sélectionnée précédemment
+        objet = objetsCases[x][y]
+        if objet == 0:
+            plouf()
+        elif objet == 1:
+            virus()
+        elif objet == 2:
+            antidote()
+        elif objet == 3:
+            bonus()
+        objetsCases[x][y] = -1
 
-    if getnvie() < 0: #La vie ne peut pas être négative
-        setnvie(0)
-    
-    capturer = False #La turtle ne peut pas se déplacer sur la grille tant qu'elle dessine le score...
-
-    afficherScore() 
-    if getnvie() <= 0 or getnvirus() == 5: #Game Over
-        if not messagebox.askokcancel("Game Over", "La population mondiale a été éradiquée, vous avez perdu.\nScore : "+str(getscore())+"\nRecommencer ?"):
-            bye() #Fin du jeu
-        else:
-            initialiser() #Nouvelle partie
-    elif getnantidotes() == 5: #Victoire
-        setscore(getscore()+1000)
-        if not messagebox.askokcancel("Victoire", "Vous avez sauvé l'humanité ! Bravo !\nScore :"+str(getscore())+"\nRecommencer ?"): 
-            bye()
-        else:
-            initialiser() 
-    else: #Déroulement habituel du jeu
-        setCoordonnees(coordonneesTortue) #La turtle se déplace sur ses nouvelles coordonnées
+        if getnvie() < 0: #La vie ne peut pas être négative
+            setnvie(0)
         
-    capturer = True #La turtle peut de nouveau se déplacer sur la grille
+        capturer = False #La turtle ne peut pas se déplacer sur la grille tant qu'elle dessine le score...
+
+        afficherScore() 
+        if getnvie() <= 0 or getnvirus() == 5: #Game Over
+            if not messagebox.askokcancel("Game Over", "La population mondiale a été éradiquée, vous avez perdu.\nScore : "+str(getscore())+"\nRecommencer ?"):
+                bye() #Fin du jeu
+            else:
+                initialiser() #Nouvelle partie
+        elif getnantidotes() == 5: #Victoire
+            setscore(getscore()+1000)
+            if not messagebox.askokcancel("Victoire", "Vous avez sauvé l'humanité ! Bravo !\nScore :"+str(getscore())+"\nRecommencer ?"): 
+                bye()
+            else:
+                initialiser() 
+        else: #Déroulement habituel du jeu
+            setCoordonnees(coordonneesTortue) #La turtle se déplace sur ses nouvelles coordonnées
+            
+        capturer = True #La turtle peut de nouveau se déplacer sur la grille
     
 
 initialiser()

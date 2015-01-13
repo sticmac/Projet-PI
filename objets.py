@@ -2,6 +2,7 @@
 #Module pour les objets.
 
 from turtle import *
+from tortue import *
 from random import *
 
 #Différentes variables gérant la vie (nombre d'habitants encore en vie sur Terre).
@@ -18,7 +19,7 @@ nbonus = 0
 #Liste des avatars d'antidotes et de bonus
 score = 0
 
-charb = Turtle() #Charb est une turtle dessinera les images dans les différentes cases, quand on découvrira les objets
+charb = getCharb() #On récupère Charb, initalisée dans le module Tortue, qui dessinera les images dans les différentes cases de la grille.
 
 def images():
     #Initialise Charb et inclut les différentes images des différents objets dans la bibliothèque des shapes.
