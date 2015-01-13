@@ -31,6 +31,9 @@ def dessinerFenetre(largeur, hauteur):
     tracer(0,0)
 
     decor()
+
+    cabu.speed(0)
+    #tracer(1,10)
     
     cabu.goto(0,0) #Turtle va à l'emplacement de départ.
 
@@ -90,9 +93,9 @@ def dessinerFenetre(largeur, hauteur):
         else:
             dessiner = False #Si on continue, on sort de la fenetre, donc on s'arrête.
 
-
-    cabu.goto((largeurColonne/2),(largeurLigne/2))
-    cabu.left(180)
+    up()
+    goto((largeurColonne/2),(largeurLigne/2))
+    left(180)
 
     bgcolor("#9B9B9B")
 
@@ -117,14 +120,14 @@ def decor():
     tetedemort(-50, window_height(), 100, 100)
     seringue(window_width()+50, window_height(), 100, 20, "#2B2B2B")
 
-    up()
-    goto(window_width()/2, -50)
-    write("VIROUS",align="center",font=("Arial", "50", "normal"))
+    cabu.up()
+    cabu.goto(window_width()/2, -50)
+    cabu.write("VIROUS",align="center",font=("Arial", "50", "normal"))
 
     #Remise de place des parametres de base
-    seth(0)
-    up()
-    color("black")
+    cabu.seth(0)
+    cabu.up()
+    cabu.color("black")
 
 def remplirCases():
     i = 0
@@ -183,95 +186,95 @@ def afficherScore():
     #Affiche la vie, le score et les différents objets restants dans la fenetre.
 
     #Turtle instantannée et invisible
-    hideturtle()
-    speed(0)
+    cabu.hideturtle()
+    cabu.speed(0)
     tracer(0, 0)
 
     xScore = 50
 
     #Efface les anciennes valeurs en redessinant un rectangle orange
-    up()
-    goto(xScore, window_height()+25)
-    begin_fill()
-    color("black","#F7A110")
-    down()
-    left(90)
-    forward(600)
-    right(90)
-    backward(75)
-    goto(xScore, window_height()+100)
-    forward(75)
-    backward(30)
-    end_fill()
+    cabu.up()
+    cabu.goto(xScore, window_height()+25)
+    cabu.seth(0)
+    cabu.begin_fill()
+    cabu.color("black","#F7A110")
+    cabu.down()
+    cabu.forward(600)
+    cabu.right(90)
+    cabu.backward(75)
+    cabu.goto(xScore, window_height()+100)
+    cabu.forward(75)
+    cabu.backward(30)
+    cabu.end_fill()
 
     #Remet les parametres de base (noir, etc...)
-    up()
-    color("black")
+    cabu.up()
+    cabu.color("black")
 
     #Ecrit sur le rectangle orange les différentes données necessaires pour le jeu.
     #Dans un premier temps, on écrit sur une première ligne la population mondiale restante ainsi que le score.
-    left(90)
-    forward(10)
-    write("Population mondiale : "+decomposerNombre(getnvie()))
-    forward(300)
-    write("Score : "+decomposerNombre(getscore()))
-    backward(300)
-    right(90)
+    cabu.left(90)
+    cabu.forward(10)
+    cabu.write("Population mondiale : "+decomposerNombre(getnvie()))
+    cabu.forward(300)
+    cabu.write("Score : "+decomposerNombre(getscore()))
+    cabu.backward(300)
+    cabu.right(90)
 
     #Dans un deuxième temps, on écrit sur une deuxième ligne le nombre de virus restants, d'antidotes restants et de bonus amassés.
-    backward(25)
-    left(90)
-    write("Virus restants : "+str(5-getnvirus()))
-    forward(300)
-    write("Antidotes restants : "+str(5-getnantidotes()))
-    forward(200)
-    write("Bonus : "+str(getnbonus()))
-    backward(200)
-    right(90)
+    cabu.backward(25)
+    cabu.left(90)
+    cabu.write("Virus restants : "+str(5-getnvirus()))
+    cabu.forward(300)
+    cabu.write("Antidotes restants : "+str(5-getnantidotes()))
+    cabu.forward(200)
+    cabu.write("Bonus : "+str(getnbonus()))
+    cabu.backward(200)
+    cabu.right(90)
 
     barreDeVie(pourcentageVie(),xScore+650,window_height()+25) #Trace la barre de vie à coté du rectangle orange
     
 
     #Permet de refaire bouger la turtle et de la rendre visible
-    showturtle()
     tracer(1, 10)
 
 def barreDeVie(vie, x, y):
     #Dessine la barre de vie en partant du point O(x,y)
     #Pour cela on dessine un rectangle rouge de longueur 200 par dessus lequel on redessine un rectangle bleu, dont la longueur vaut le pourcentage de la populatrion mondiale restante multiplié par 2
-    up()
-    goto(x,y)
-    seth(0)
-    down()
+    cabu.up()
+    cabu.goto(x,y)
+    cabu.seth(0)
+    cabu.down()
 
     #Rectangle rouge
-    color("black","#ba1717")
-    begin_fill()
-    forward(250)
-    left(90)
-    forward(75)
-    left(90)
-    forward(250)
-    left(90)
-    forward(75)
-    end_fill()
+    cabu.color("black","#ba1717")
+    cabu.begin_fill()
+    cabu.forward(250)
+    cabu.left(90)
+    cabu.forward(75)
+    cabu.left(90)
+    cabu.forward(250)
+    cabu.left(90)
+    cabu.forward(75)
+    cabu.end_fill()
 
     #Rectangle bleu
-    left(90)
-    color("black", "#9cdacc")
-    begin_fill()
-    forward(vie*2.5)
-    left(90)
-    forward(75)
-    left(90)
-    forward(vie*2.5)
-    left(90)
-    forward(75)
-    end_fill()
+    cabu.left(90)
+    cabu.color("black", "#9cdacc")
+    cabu.begin_fill()
+    cabu.forward(vie*2.5)
+    cabu.left(90)
+    cabu.forward(75)
+    cabu.left(90)
+    cabu.forward(vie*2.5)
+    cabu.left(90)
+    cabu.forward(75)
+    cabu.end_fill()
 
     #Remise à zéro des paramètres de la tortue
-    up()
-    color("black")
+    cabu.up()
+    cabu.hideturtle()
+    cabu.color("black")
 
 def decomposerNombre(nombre):
     #Fonction permettant de découper un nombre en milliards, millions, milliers, etc...

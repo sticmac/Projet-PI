@@ -111,7 +111,7 @@ def selectionner():
             initialiser() #Nouvelle partie
     elif getnantidotes() == 5: #Victoire
         setscore(getscore()+1000)
-        if not messagebox.askokcancel("Victoire", "Vous avez sauvé l'humanité ! Bravo !\n"+str(getscore())+"Recommencer ?"): 
+        if not messagebox.askokcancel("Victoire", "Vous avez sauvé l'humanité ! Bravo !\nScore :"+str(getscore())+"\nRecommencer ?"): 
             bye()
         else:
             initialiser() 

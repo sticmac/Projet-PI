@@ -12,7 +12,7 @@ def debutDessin(x, y, angle, couleur):
     color(couleur)
     begin_fill()
 
-def drawvirus(x, y):
+def drawvirus(x, y, longueurCoteCarre):
     #Dessine un cercle de centre O(x,y) et de rayon 12
     debutDessin(x,y,90,"#2B2B2B")
     backward(12)
@@ -25,7 +25,7 @@ def drawvirus(x, y):
     down()
     end_fill() #On remplit ce que l'on vient de dessiner.
 
-    #Dessine un premier carré de coté 10 et de centre O
+    #Dessine un premier carré de coté 20 et de centre O
     debutDessin(x,y,90,"#2B2B2B") 
     backward(10)
     left(90)
@@ -35,7 +35,7 @@ def drawvirus(x, y):
     dessinePolygone(4,20)
     end_fill()
 
-    #Dessine un deuxième carré de coté 10 et de centre O, mais incliné de 45 degrés
+    #Dessine un deuxième carré de coté 20 et de centre O, mais incliné de 45 degrés
     up()
     goto(x,y)
     backward(14.2)
