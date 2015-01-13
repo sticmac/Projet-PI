@@ -1,0 +1,254 @@
+CASAGRANDE Guillaume & LEMAIRE Julien – G2
+VIROUS
+Présentation du projet
+
+Bienvenue dans VIROUS! 
+L’avenir du monde est entre vos mains. La Terre est touchée par un virus mortel. Allez-vous réussir à 
+sauver l’humanité ou, au contraire, allez-vous contribuer à sa perte ? Nous comptons sur vous pour 
+trouver l’antidote le plus rapidement possible avant que le virus contamine le monde entier.
+
+I - Les règles du jeu
+
+VIROUS est un jeu d’objets cachés. Différents éléments sont dissimulés dans une grille faite de huit 
+colonnes et huit lignes. Le but est de trouver les cinq antidotes afin de stopper l’extinction de toute la 
+population mondiale (soit 7 272 000 000 d’habitants). 
+Pour cela, le joueur utilisera le clavier afin de déplacer de gauche à droite ou de bas en haut un curseur (la 
+turtle), et choisir une case. Toutefois, il est nécessaire de trouver rapidement les antidotes car à chaque 
+tour,  la case ouverte provoque une perte de la population. 
+Il existe quatre types d’objets cachés dans la grille : les « plouf »,  les virus,  les bonus et les antidotes.
+- Les « plouf » sont des cases passives.
+- Les virus sont les plus dangereux. Pour chaque virus trouvé, la population mondiale baisse d’un milliard 
+d’habitants. Si les 5 virus sont retournés, la partie est terminée, le joueur a perdu.
+- Les bonus sont au nombre de 10 et ont deux effets : ils permettent un gain de score ou une diminution 
+du nombre de morts par tour (voir II.3- objets.py).
+- 5 antidotes sont disponibles. Si le joueur les trouve tous, il gagne la partie. 
+
+II - La structure du code
+
+Le jeu a été développé sur cinq fichiers : le fichier principal (cacheCache) et ses quatre modules (grille, 
+tortue, objets et decor).
+
+II.1 - cacheCache.py :
+         C’est à partir de cacheCache que le joueur lance le jeu. Vous n’avez pas besoin de l’invite de 
+commande pour jouer, toute l’interface est dans la fenêtre de turtle. Cependant, si vous souhaitez 
+particulièrement gagner, l’invite de commande affiche la position de tous les objets (antidotes, virus et 
+bonus).
+         - La première fonction exécutée dans le programme est « initialiser ». Comme son nom l’indique, elle 
+permet de lancer le jeu et d’importer les valeurs par défaut dans les variables. La population est remise à 
+son taux actuel, le nombre de virus est remis à 0… Cette partie de la fonction est surtout utile si vous 
+rejouez après une victoire ou une défaite. La fonction fait ensuite appel aux fonctions du module grille.py 
+afin de dessiner la grille, de charger les images utilisées pour la grille, d’y placer les objets et d’afficher le 
+rectangle des éléments de score en bas de la fenêtre. Après, les fonctions du module turtle.py sont utilisés 
+afin de placer la turtle au milieu de la case. Enfin, grâce à « tkinter », un message de bienvenue apparaît.
+         - La deuxième fonction est « deplacements ». Grâce à la programmation évènementielle, on peut 
+récupérer les informations envoyées par le joueur à travers le clavier (les quatre directions et le bouton 
+d’action : la barre espace) et qui vont nous permettre de faire bouger la turtle. Les cinq fonctions « haut, 
+bas, droite, gauche et selectionner » vont être ainsi utilisées.
+Par exemple, si le joueur appuie sur la flèche du haut (soit « Up »), la fonction « haut » va être exécutée. Si 
+le curseur n’est pas en fin de fenêtre (voir II.4- tortue.py) et si il n’est pas déjà occupé (variable booléenne 
+capturer), les coordonnées de la tortue vont être modifiées pour qu’elle se déplace dans la case supérieure.
+De plus, en appuyant sur la barre espace, c’est la fonction « selectionner » qui sera exécutée. Cette fonction 
+permet de choisir une case, de faire apparaître son contenu et d’exécuter l’effet de l’objet. D’abord, on 
+récupère la position de la turtle et on retrouve ainsi la coordonnée de la case de la grille correspondante. 
+Pour cela, la liste objetsCases est utilisée (voir II.2- grille.py). Elle représente la liste contenant les 
+coordonnées et la référence de l’objet : 0 représente un plouf ; 1, un virus ; 2, un antidote ; 3, un bonus et -
+1 représente une case déjà sélectionnée auparavant. Grâce à cette valeur, on peut exécuter la fonction 
+(plouf, virus…) correspondante à l’effet de l’élément (voir II.3- objets.py). Ensuite, la valeur est mise à -1 
+pour ne pas être à nouveau sélectionnée. C’est là qu’intervient la variable booléenne « capturer » qui a 
+résolu d’importants bugs. Quand cette variable est à « False », il devient impossible au joueur de déplacer la 
+turtle. Enfin, dans la fonction « selectionner », les cas de défaite ou de victoire sont traités. En effet, si 
+l’humanité est décimée ou si les 5 virus ont été découverts, un message de défaite apparaît. Le joueur a le 
+choix entre relancer une nouvelle partie (exécution de la fonction « initialiser » qui relance le jeu) ou quitter 
+(fonction « bye » qui ferme le jeu). S’il trouve les 5 antidotes, il reçoit un message de victoire avec un bonus 
+selon la population restante et 1000 points, et se retrouve face au même choix.
+         - Enfin, les fonctions « listen » et « mainloop » permettent le passage en programmation 
+évènementielle (grâce à celle-ci, les fonctions du programme seront ré-exécutées à chaque action de 
+l’utilisateur). Plus précisément, la fonction « listen » permet de donner la parole au clavier, et « mainloop » 
+permet de lancer « listen » en boucle.
+
+II.2 - grille.py :
+         Nous abordons maintenant le module le plus important du jeu : grille. Il s’occupe en grande partie de 
+l’aspect graphique de la fenêtre et bien évidemment, de l’organisation de la grille.
+         - Tout d’abord, la construction de la grille se fait à partir de deux tortues. Par un souci 
+d’organisation, la création d’une autre tortue s’est avérée nécessaire pour la mise en place du jeu. La 
+fonction « getCabu » permet de récupérer cette nouvelle tortue initialisée dans le module tortue (voir II.4- 
+tortue.py). On la stocke dans une variable éponyme pour simplifier le code par la suite. La turtle Cabu a 
+été mise en place pour dessiner l’interface et la grille à la place de la tortue principale.
+         - La première fonction dont on va s’occuper est « dessinerFenetre » qui permet d’afficher la grille. 
+Après de longues réflexions sur la taille de celle-ci, nous avons décidé de créer une grille dont le nombre de 
+colonnes et de lignes serait modifiable. Nous avons finalement choisi un tableau à huit lignes et huit 
+colonnes. La fonction « setup » est d’abord exécutée. Elle permet de fixer la taille de la fenêtre. Afin de 
+faciliter tout calcul utilisant des coordonnées, nous avons décidé d’appliquer la fonction 
+« setworldcoordinates » qui redéfinit le système de coordonnées dans lequel se trouve la turtle. Ainsi, la 
+position (0,0) correspond au coin haut-gauche du tableau. Pour accélérer le dessin, on utilise la fonction 
+« speed » qui augmente la vitesse de la turtle Cabu et la fonction « tracer » qui diminue le laps de temps 
+entre chacune de ses actions à 0. Le programme exécute ensuite la fonction « decor » (qui sera expliquée 
+juste après), puis commence à tracer les colonnes puis les lignes. Pour ne pas répéter les opérations, nous 
+utilisons des boucles pour faire plusieurs motifs. On a rajouté une condition qui permet d’écrire le numéro 
+de la colonne/ligne correspondante. Ensuite, on positionne la turtle dans la première case du tableau et on 
+la dirige vers le haut. Enfin, on applique une couleur à l’arrière-plan avec « bgcolor » et on ralentit la turtle 
+pour que ses futurs mouvements soient visibles.
+         - La fonction suivante qui s’exécute grâce à « dessinerFenetre », permet de dessiner les différents 
+éléments du décor (un erlenmeyer, un tube à essai, une tête de mort et une seringue). Plus 
+particulièrement, elle place les éléments venant du module decor.py à différentes coordonnées (ou de 
+manière répétitive d’une coordonnée à une autre). Afin d’afficher le titre du jeu en haut de la fenêtre, nous 
+avons utilisé les shapes, c’est-à-dire les différentes apparences que peut prendre une turtle. Ces apparences 
+sont stockées dans une base de données à laquelle on peut rajouter des éléments à l’aide de « addshape ». 
+Elle permet d’y rajouter des images au format gif que l’on pourra utiliser pour changer l’apparence de la 
+turtle avec la fonction « shape ». Enfin, la fonction « stamp » permet d’imprimer le shape sur l’interface 
+graphique. Au final, on a réussi à afficher le titre qui est en format gif, en haut de l’écran.
+         - « remplirCases », la fonction succédant à « decor », permet de placer les antidotes, les virus et les 
+bonus dans la grille. Elle est essentiellement utilisée dans la fonction « selectionner » du fichier principal. 
+« remplirCases » crée une liste contenant les coordonnées de toutes les cases du tableau et lui attribue un 
+numéro. C’est ce numéro qui indique si la case comporte un virus, un antidote ou un bonus. On modifie le 
+numéro de la case uniquement si elle est déjà vide (si son numéro correspondant vaut 0). De plus, 
+« randint » permet le rendu aléatoire de la position des éléments dans la grille. Pour une meilleure lisibilité, 
+les grands nombres sont découpés grâce à la fonction « decomposerNombre » explicitée dessous.
+         - Ensuite, « afficherScore » permet d’écrire dans un emplacement en dessous de la grille les éléments 
+importants du jeu dont le joueur doit avoir connaissance, c’est-à-dire la population restante, le score, le 
+nombre de bonus obtenus, et le nombre de virus et d’antidotes restants à trouver. La fonction dessine 
+d’abord un rectangle orange qui vient écraser le précédent affichage. Puis, avec « write », elle écrit les 
+données. Deux nouvelles fonctions ont été utilisées : « begin_fill/end_fill » et « hideturtle/showturtle ». La 
+première permet le remplissage d’une surface lors du dessin et la seconde rend invisible la turtle. […]
+          - La fonction dessinant la barre de vie (« barreDeVie ») est écrite juste en dessous. Pour représenter 
+la population mondiale de manière plus visuelle, nous avons dessiné un rectangle bleu représentant la 
+population restante. Un rectangle rouge vient se rajouter par-dessus représentant les morts du virus. Ce 
+rectangle est tracé en fonction du pourcentage d’humains encore en vie (calculé dans objets.py). Ce 
+pourcentage est d’ailleurs multiplié par deux sachant que le rectangle occupe une place de 200 de longueur.
+          - Enfin, nous avons remarqué que les nombres représentant la population mondiale et le score 
+étaient illisibles. Pour régler ce problème, nous avons créé la fonction « decomposerNombre » qui renvoie 
+le même nombre mais avec des espaces grâce à une transformation en chaîne de caractère. Les unités sont 
+donc séparées des milliers, des millions et des milliards par un espace.
+
+II.3 - objets.py :
+         Voici un autre module : le module « objets ». Il gère les données des objets de la grille: le nombre de 
+morts, de bonus trouvés…
+         - Avant d’expliquer les différentes fonctions, nous abordons le contenu des variables du module.
+« nvie » correspond à la population mondiale (ce qui équivaut à la vie du joueur). « vieEnleve » correspond 
+quant à elle, au nombre de morts par tour. Il est de 100 millions au début du jeu, mais ce nombre sera 
+modifié plus tard grâce aux bonus. « vieEnleveVirus » est le nombre de tués lors de la découverte d’un 
+foyer de virus (il est d’un milliard). « nvirus », « nantidotes » et « nbonus » comptent le nombre d’objets 
+découverts. Enfin, comme on a fait avec Cabu, on initialise Charb, notre deuxième turtle qui va nous 
+permettre de dessiner les images dans les cases. Ces images seront introduites dans le jeu grâce aux deux 
+fonctions suivantes.
+          - D’abord, nous allons procéder pratiquement comme avec Cabu. Les shapes sont utilisées. La 
+fonction « images » permet d’inclure toutes les dessins dans la base de données de shape. Il existe plusieurs 
+dessins pour un même objet, des variables ont donc été utilisées pour éviter d’avoir plus de deux fois le 
+même dessin à la suite.
+          - En complément, nous avons la fonction « dessineCharb ». C’est elle qui va faire en sorte qu’on 
+puisse afficher l’image. Charb se déplace au niveau de la turtle de base grâce aux coordonnées de celle-ci 
+récupérées par l’intermédiaire de « xcor » et « ycor ». Une fois le déplacement effectué, la turtle change de 
+forme et s’imprime dans l’interface.
+          - Ensuite, nous avons quatre fonctions qui correspondent aux quatre types d’objet. Elles sont 
+utilisées lors de la découverte de l’un de ces objets lors de la fonction « selectionner » et correspondent à 
+l’effet de ces quatre objets.
+• La fonction « virus » affiche le dessin d’un virus, enlève 1 milliard d’habitants à la population mondiale 
+et incrémente le compteur de virus.
+• La fonction « antidote » choisit une image d’antidote, puis demande à Charb de l’afficher. On fait en 
+sorte qu’on ne puisse pas se retrouver une seconde fois avec la même image. La fonction ajoute ensuite du 
+score, enlève « vieEnleve » d’habitants à la population mondiale et incrémente le compteur d’antidotes.
+• La fonction « bonus » s’exécute de la même manière sauf qu’il faut prendre en compte les deux types de 
+bonus. Pour cela, on utilise une variable aléatoire entre 0 et 1 qui tranchera entre le bonus de vie ou de 
+score. « bonus » affiche donc le dessin d’un cadeau, réduit le nombre de morts par tour (entre 1 et 6 
+millions aléatoirement) ou augmente le score (entre 10 et 200 points), enlève « vieEnleve » d’habitants à la 
+population mondiale et incrémente le compteur de bonus.
+• La fonction « plouf » affiche le dessin correspondant grâce à Charb, puis enlève « vieEnleve » 
+d’habitants à la population mondiale.
+         - De plus, c’est dans « pourcentageVie » qu’est calculé le pourcentage d’humains en vie en fonction 
+de la population mondiale avant que le virus n’arrive.
+         - A cause de l’impossibilité d’accéder aux variables globales dans les autres fichiers, nous avons 
+décidé de définir le nombre d’objets grâce à des fonctions « getnobjet » et « setnobjet ». La fonction avec 
+« get » retourne la valeur (par exemple, avec » print(getvirus()) », on aurait le nombre de virus trouvés 
+affiché). L’autre fonction avec « set » permet de fixer une nouvelle valeur (si on écrit « setantidote(0) », le 
+nombre d’antidotes sera à 0).
+
+II.4 - tortue.py :
+         Un module était nécessaire pour gérer l’utilisation des curseurs, c’est là qu’intervient le module 
+tortue. Il ne possède que quatre petites fonctions, mais elles sont néanmoins très importantes.
+         - D’abord, les deux nouvelles tortues sont créées (Cabu et Charb) à l’aide de la fonction « Turtle ».
+         - « coordonneesOK » est utilisé lors du déplacement de la tortue. Il permet d’éviter la sortie du 
+curseur de la grille.
+         - « setCoordonnees » permet d’envoyer la tortue à une certaine position en utilisant comme 
+paramètre la position demandée sous forme de liste à deux éléments. C’est une fonction essentielle pour le 
+changement de position lors du jeu.
+         - Les fonctions « getCabu » et « getCharb » rendent les deux tortues réutilisables dans d’autres 
+modules.
+
+II.5 - decor.py :
+         Le dernier module restant à présenter est le module « decor ». Il contient bien entendu tous les 
+éléments graphiques pour un décor sympathique.
+         - Les éléments du décor avaient tous des éléments en commun, donc au lieu de les écrire plusieurs 
+fois, la fonction « debutDessin » permet de raccourcir le code. De plus, la commande « seth » a été utilisée 
+à de nombreuses reprises. Elle permet de changer l’orientation de la tortue avec, comme paramètre, un 
+angle (par exemple seth(90) dirige la turtle vers le haut dans cette partie du programme).
+         - La fonction « dessinePolygone » permet aussi de raccourcir le code en dessinant des formes plus 
+facilement à l’aide de paramètres comme le nombre de côtés du polygone à dessiner et leur longueur.
+         - Enfin, toutes les autres fonctions correspondent à des dessins pour le décor (un erlenmeyer, une 
+seringue, un virus…). Ces éléments de décors sont introduits dans le jeu grâce à la fonction « decor » de 
+grille.py.
+
+III - La répartition du travail
+
+                  D’un commun accord, nous avons pratiquement travaillé tout le temps ensemble. Lors des 
+séances de programmation en classe, nous avons utilisé le même ordinateur. Quant au travail à la maison, 
+nous avons conservé le même concept : un partage d’écran, via Skype. 
+Nous avons été tous les deux très impliqués dans ce projet et cette volonté de cohésion nous a permis une 
+meilleure production. Il a été inutile de programmer des réunions pour analyser ou recommencer le travail 
+de l’autre. Dès le début, nous avons fait le choix de privilégier les échanges afin de nous stimuler. Nos 
+efforts étaient communs et enrichissants. Nos idées communes permettaient une progression rapide, et 
+nos différents points de vue proposaient de nouvelles pistes et nous faisaient prendre du recul. 
+         Toutefois, même si notre complémentarité et notre richesse d’échanges ont été très importantes, 
+elles ne nous ont nullement empêché une réflexion individuelle. Pendant nos heures libres, nous avons 
+également réfléchi chacun de notre côté pour améliorer la structure du code, simplifier nos fonctions ou 
+en imaginer d’autres. Certains travaux ont même été personnels : pendant que Julien a optimisé l’interface, 
+j’ai créé les dessins des quatre objets cachés, ou encore, lorsque Julien a installé mes dessins, j’ai écrit le 
+rapport.
+
+IV - La décomposition du travail et les problèmes rencontrés
+
+         Les premières séances ont été cruciales pour la concrétisation du projet. Nous avons commencé par 
+nous poser quelques questions: Comment se déplacer dans la grille ? Quels éléments trouverons-nous dans 
+la grille ? Comment seront stockées les coordonnées de ces objets ?…
+Sur papier, nous avons fait quelques croquis représentant les différentes idées que nous nous faisions de 
+notre futur jeu. Pour chaque remarque, nous avons imaginé les lignes de code afin de déterminer si nos 
+prétentions étaient à notre portée ou pas. 
+        A la suite de cette analyse, nous avons commencé notre réflexion sur le thème à définir. Nous avions 
+de nombreuses idées et c’est, sur un fond de Plague Inc. (jeu indépendant récent, au succès non 
+négligeable, où il s’agissait justement de contaminer et décimer la population mondiale avec un virus 
+mortel), que le thème d’épidémie mondiale fut choisi. Parmi plusieurs propositions, nous avons également 
+sélectionné le nom du jeu : VIROUS.
+         Enfin, nous avons établi plus précisément chaque grande ligne du jeu et nous avons progressivement  
+défini les étapes de la programmation de VIROUS. 
+Il était d’abord nécessaire de dessiner la grille. Suite à l’indécision sur sa taille, nous avons décidé de créer 
+un tableau qui permettait de changer les dimensions. Ensuite, de nombreux essais ont été effectués pour 
+obtenir une bonne précision des tracés du curseur. Enfin, nous nous sommes occupés des mouvements de 
+la turtle, afin qu’elle puisse parfaitement se déplacer de case en case.
+Notre objectif premier a été atteint lorsque nous avons assuré le bon fonctionnement des bases du jeu. 
+Dès lors, nous avons pu tester directement dans le jeu, toutes les nouvelles fonctions (savamment étudiées 
+au préalable), telles que sélectionner les cases et dévoiler leur contenu, afficher le score, ou encore faire 
+apparaître la boite de dialogues.
+         Toutefois, nous avons rencontré quelques problèmes avec les variables globales. 
+En effet, certains modules nécessitaient des variables qui étaient dans d’autres fichiers (par exemple, la 
+largeur d’une colonne). La résolution de ce problème nous a pris beaucoup de temps. Nous avons dû 
+déplacer certaines fonctions dans un autre module, ou élaborer de nouvelles fonctions renvoyant la valeur 
+de la variable (comme par exemple getnantidotes). De légères confusions dans les noms des variables nous 
+ont également créé quelques désagréments. 
+De plus, un léger bug a remis en cause la robustesse du jeu : si nous sélectionnions trop vite une case, la 
+turtle n’avait pas le temps de se déplacer jusqu’en bas, écrire le score et remonter. Ainsi, le score s’affichait 
+n’importe où dans la fenêtre. L’utilisation d’une variable booléenne a résolu notre problème. Si la turtle 
+n’avait pas fini son déplacement, l’utilisateur ne pouvait pas sélectionner une autre case. D’ailleurs, pour 
+éviter que l’utilisateur voie le curseur bouger vers le bas, la fonction « hideturtle » a été un bon atout. 
+
+Conclusion
+
+         VIROUS est conforme au cahier des charges et représente bien tous nos principaux objectifs. 
+Grâce à la structure du code à laquelle nous avons donné une grande importance, notre jeu fonctionne très 
+bien. 
+VIROUS est robuste car il ne bugge pas lorsqu’il est poussé à l’extrême. Le joueur peut donc sans soucis 
+utiliser les touches très rapidement. Le jeu est également ergonomique. Le lien entre VIROUS et le joueur 
+se fait très vite car le jeu est fluide : le temps de réaction est très rapide (les actions sont instantanées), mais 
+également car il est facile à manier : seules les quatre touches « haut, bas, gauche, droite » et la barre 
+« espace » du clavier sont à utiliser. Le gameplay a été approfondi : il est riche grâce aux différents objets à 
+dévoiler (les « plouf », les bonus, les virus et les antidotes).
+Toutefois, nous pouvons d’ors et déjà imaginer d’autres modifications au niveau de l’esthétisme afin de 
+rendre le jeu encore plus attractif.
